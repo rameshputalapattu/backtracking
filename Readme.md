@@ -6,4 +6,5 @@ Problems explored:
     - Permutations
     - Subset sums
     - partitions using two integers
+    - sudoku
 
