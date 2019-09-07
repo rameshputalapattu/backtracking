@@ -4,14 +4,25 @@ import (
 	"fmt"
 )
 
-func isasolutionSubSetSum(a []interface{}, k int, data []interface{}) bool {
+func isasolutionSubSetSum(a []interface{}, k int, data []interface{}, targetSum int) bool {
 	var total = 0
 	for idx, elem := range a {
 		if elem.(bool) {
 			total += data[idx].(int)
 		}
 
-		if total == 60 {
+	}
+
+	if total == targetSum && any(a) {
+		return true
+	}
+
+	return false
+}
+
+func any(a []interface{}) bool {
+	for _, elem := range a {
+		if elem.(bool) {
 			return true
 		}
 	}
@@ -19,8 +30,23 @@ func isasolutionSubSetSum(a []interface{}, k int, data []interface{}) bool {
 	return false
 }
 
-func prunesearchSubSetSum(a []interface{}, k int, data []interface{}) bool {
+func prunesearchSubSetSum(a []interface{}, k int, data []interface{}, targetSum int) bool {
 	if len(a) == len(data) {
+		return true
+	}
+	var total = 0
+	for idx, elem := range a {
+		if elem.(bool) {
+			total += data[idx].(int)
+		}
+
+	}
+
+	if total > targetSum {
+		return true
+	}
+
+	if total+data[len(a)].(int) > targetSum {
 		return true
 	}
 
