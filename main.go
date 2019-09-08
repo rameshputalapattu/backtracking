@@ -25,7 +25,7 @@ func main() {
 	// //backtrack(a, 0, nil, createCandidatesSumPart, isasolutionSumPart, processSolutionSumPart, prunesearchSumPart)
 	// backtrack(a, 0, data, createCandidatesSubSetSum, isSolutionfuncSS, processSolutionSubSetSum, pruneSearchSS)
 
-	sudoku := `
+	sudoku_1 := `
 	000000012
 	000035000
 	000600070
@@ -35,8 +35,56 @@ func main() {
 	000120000
 	080000040
 	050000600
+
+	`
+
+	sudoku_2 := `
+	000600420
+	000000000
+	005049706
+	840005100
+	300080009
+	006300075
+	509130600
+	000000000
+	018002000
+
+	`
+
+	sudoku_3 := `
+	530070000
+	600195000
+	098000060
+	800060003
+	400803001
+	700020006
+	060000280
+	000419005
+	000080079
+	`
+
+	sudoku_4 := `
+	000000060
+	730062500
+	015800009
+	090080006
+	001506400
+	300070080
+	500008620
+	007250031
+	020000000
 	
 	`
+	solveSudoku(sudoku_1)
+	solveSudoku(sudoku_2)
+	solveSudoku(sudoku_3)
+	solveSudoku(sudoku_4)
+
+}
+
+func solveSudoku(sudoku string) {
+	numCalls = 0
+	numPrunes = 0
 	board, err := parseBoard(sudoku)
 	if err != nil {
 		log.Fatal(err)
@@ -70,5 +118,4 @@ func main() {
 
 	backtrack(nil, 0, nil, createCandidatesSku, isSolutionSku, processSolutionSku,
 		pruneSearchSku, makeMoveSku, unmakeMoveSku)
-
 }

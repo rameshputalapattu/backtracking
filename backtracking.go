@@ -4,6 +4,9 @@ import "fmt"
 
 //import "fmt"
 
+var numCalls int
+var numPrunes int
+
 type createCandidatesfunc func(a []interface{}, k int, data []interface{}) []interface{}
 
 type isaSolutionfunc func(a []interface{}, k int, data []interface{}) bool
@@ -30,9 +33,13 @@ func backtrack(a []interface{}, k int, data []interface{},
 	makemove makeMovefunc,
 	unmakemove unmakeMovefunc,
 ) {
+
 	//printIndent(len(a))
 	//fmt.Println("k=", k, ",a=", a)
 	if isasolution(a, k, data) {
+
+		fmt.Println("total calls:", numCalls)
+		fmt.Println("total prunes:", numPrunes)
 		processSolution(a, data)
 		return
 	}
@@ -40,6 +47,7 @@ func backtrack(a []interface{}, k int, data []interface{},
 	k = k + 1
 
 	if prunesearch(a, k, data) {
+
 		return
 	}
 

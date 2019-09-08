@@ -28,15 +28,35 @@ func (b *Board) setFreeCells() {
 	}
 }
 
-func (b Board) nextFreeSquare() (int, int) {
+func computeminXminYVals(b Board) (int, int, int) {
+	var minX, minY int
+	numPosVals := 9
 	for i := 0; i < len(b.Squares); i++ {
 		for j := 0; j < len(b.Squares[i]); j++ {
 			if b.Squares[i][j] == 0 {
-				return i, j
+				currentPosVals := len(possibleValues(&b, i, j))
+				if currentPosVals < numPosVals {
+					numPosVals = currentPosVals
+					minX = i
+					minY = j
+				}
 			}
 		}
 	}
-	return 0, 0
+	return minX, minY, numPosVals
+
+}
+
+func (b Board) nextFreeSquare() (int, int) {
+	// for i := 0; i < len(b.Squares); i++ {
+	// 	for j := 0; j < len(b.Squares[i]); j++ {
+	// 		if b.Squares[i][j] == 0 {
+	// 			return i, j
+	// 		}
+	// 	}
+	// }
+	minX, minY, _ := computeminXminYVals(b)
+	return minX, minY
 }
 
 func (b Board) printBoard() {
@@ -50,6 +70,7 @@ func makeMove(b *Board, a []interface{}, k int, data []interface{}, candidate in
 	currentMove := candidate.(move)
 	b.Squares[currentMove.x][currentMove.y] = currentMove.value
 	b.FreeCells--
+	//b.printBoard()
 
 }
 
@@ -60,6 +81,11 @@ func unmakeMove(b *Board, a []interface{}, k int, data []interface{}, candidate 
 }
 
 func pruneSearchSudoku(b *Board, a []interface{}, k int, data []interface{}) bool {
+	_, _, minPosVals := computeminXminYVals(*b)
+	if minPosVals == 0 {
+		numPrunes++
+		return true
+	}
 	return b.FreeCells == 0
 }
 
@@ -68,6 +94,7 @@ func processSolutionSudoku(b *Board, a []interface{}, data []interface{}) {
 }
 
 func isasolutionSudoku(b *Board, a []interface{}, k int, data []interface{}) bool {
+	numCalls++
 	return b.FreeCells == 0
 }
 
