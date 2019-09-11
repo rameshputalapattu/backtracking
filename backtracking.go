@@ -32,38 +32,47 @@ func backtrack(a []interface{}, k int, data []interface{},
 	prunesearch pruneSearchfunc,
 	makemove makeMovefunc,
 	unmakemove unmakeMovefunc,
-) {
+	stopEarly bool,
+) bool {
 
 	//printIndent(len(a))
 	//fmt.Println("k=", k, ",a=", a)
+
 	if isasolution(a, k, data) {
 
 		fmt.Println("total calls:", numCalls)
 		fmt.Println("total prunes:", numPrunes)
 		processSolution(a, data)
-		return
+		return true
 	}
-
-	k = k + 1
 
 	if prunesearch(a, k, data) {
 
-		return
+		return false
 	}
+
+	k = k + 1
 
 	candidates := createCandidates(a, k, data)
 	for _, candidate := range candidates {
 		//fmt.Println("k=", k, "candidate=", candidate, "a=", a)
 		makemove(a, k, data, candidate)
-		backtrack(append(a, candidate),
+		if backtrack(append(a, candidate),
 			k,
 			data,
 			createCandidates,
 			isasolution,
 			processSolution,
 			prunesearch,
-			makemove, unmakemove)
+			makemove, unmakemove, stopEarly) {
+			if stopEarly {
+				return true
+			}
+
+		}
 		unmakemove(a, k, data, candidate)
+
 	}
+	return false
 
 }

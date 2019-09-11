@@ -25,6 +25,14 @@ func processSolutionSubsets(a []interface{}, data []interface{}) {
 
 }
 
+func makeMoveSubsets(a []interface{}, k int, data []interface{}, candidate interface{}) {
+
+}
+
+func unmakeMoveSubsets(a []interface{}, k int, data []interface{}, candidate interface{}) {
+
+}
+
 func createCandidatesSubsets(a []interface{}, k int, data []interface{}) []interface{} {
 	candidates := []interface{}{true, false}
 	return candidates

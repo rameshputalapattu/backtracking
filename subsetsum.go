@@ -66,6 +66,14 @@ func processSolutionSubSetSum(a []interface{}, data []interface{}) {
 
 }
 
+func makeMoveSubsetSum(a []interface{}, k int, data []interface{}, candidate interface{}) {
+
+}
+
+func unmakeMoveSubsetSum(a []interface{}, k int, data []interface{}, candidate interface{}) {
+
+}
+
 func createCandidatesSubSetSum(a []interface{}, k int, data []interface{}) []interface{} {
 	candidates := []interface{}{true, false}
 	return candidates
